@@ -3,12 +3,8 @@
 import typing
 
 from setuptools import Command, Distribution
+from setuptools.command.build import build
 from setuptools.command.install import install
-
-# Using build from setuptools.command.build does not work.
-# See TODO
-# pylint: disable-next=deprecated-module,wrong-import-order
-from distutils.command.build import build
 
 # There is no clean command. See https://github.com/pypa/setuptools/issues/4034
 # pylint: disable-next=deprecated-module,wrong-import-order
