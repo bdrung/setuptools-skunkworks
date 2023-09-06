@@ -1,0 +1,20 @@
+Source: setuptools-skunkworks
+Section: python
+Priority: optional
+Maintainer: Benjamin Drung <bdrung@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-python3,
+               pybuild-plugin-pyproject,
+               python3-all,
+               python3-setuptools
+Rules-Requires-Root: no
+Standards-Version: 4.6.2
+Testsuite: autopkgtest-pkg-python
+Homepage: https://github.com/bdrung/setuptools-skunkworks
+
+Package: python3-setuptools-skunkworks
+Depends: python3-setuptools, ${misc:Depends}, ${python3:Depends}
+Architecture: all
+Description: Example setuptools extension plugin
+ This package contains an example setuptools plugin that just loggs its calls
+ for testing the setuptools integration.

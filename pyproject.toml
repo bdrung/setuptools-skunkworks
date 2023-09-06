@@ -1,0 +1,19 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools"]
+
+[project]
+name = "setuptools-skunkworks"
+maintainers = [{name = "Benjamin Drung", email = "benjamin.drung@canonical.com"}]
+version = "0.1"
+
+[project.entry-points."distutils.commands"]
+build_skunkworks = "setuptools_skunkworks:build_skunkworks"
+clean_skunkworks = "setuptools_skunkworks:clean_skunkworks"
+install_skunkworks = "setuptools_skunkworks:install_skunkworks"
+
+[project.entry-points."setuptools.finalize_distribution_options"]
+setuptools_skunkworks = "setuptools_skunkworks:finalize_distribution_options"
+
+[tool.setuptools]
+py-modules = ["setuptools_skunkworks"]
