@@ -3,12 +3,6 @@
 import typing
 
 from setuptools import Command, Distribution
-from setuptools.command.build import build
-from setuptools.command.install import install
-
-# There is no clean command. See https://github.com/pypa/setuptools/issues/4034
-# pylint: disable-next=deprecated-module,wrong-import-order
-from distutils.command.clean import clean
 
 
 # pylint: disable-next=invalid-name
@@ -79,8 +73,18 @@ def has_skunkworks(command: Command) -> bool:
 def finalize_distribution_options(dist: Distribution) -> None:
     """Plug the extension into setuptools."""
     print(f"SKUNKWORKS: finalize_distribution_options({dist!r}) called.")
+    build = dist.get_command_class("build")
+    print(f"SKUNKWORKS: Appending build_skunkworks to {build} sub-commands...")
+    build.sub_commands.append(("build_skunkworks", has_skunkworks))
+    print(f"SKUNKWORKS: build.sub_commands = {build.sub_commands!r}")
 
+    # Note: setuptools has no clean sub-commands!
+    clean = dist.get_command_class("clean")
+    print(f"SKUNKWORKS: Appending clean_skunkworks to {clean} sub-commands...")
+    clean.sub_commands.append(("clean_skunkworks", has_skunkworks))
+    print(f"SKUNKWORKS: clean.sub_commands = {clean.sub_commands!r}")
 
-build.sub_commands.append(("build_skunkworks", has_skunkworks))
-clean.sub_commands.append(("clean_skunkworks", has_skunkworks))
-install.sub_commands.append(("install_skunkworks", has_skunkworks))
+    install = dist.get_command_class("install")
+    print(f"SKUNKWORKS: Appending install_skunkworks to {install} sub-commands...")
+    install.sub_commands.append(("install_skunkworks", has_skunkworks))
+    print(f"SKUNKWORKS: install.sub_commands = {install.sub_commands!r}")
